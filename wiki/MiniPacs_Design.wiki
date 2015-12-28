@@ -1,0 +1,17 @@
+#labels MiniPacs系统设计和说明,Phase-Requirements,Phase-Design
+1、系统组成
+1)登记系统：含登记工作站软件，条码打印机，条码扫描枪
+2)Worklist服务器
+3)评片工作站：含三件套，即RIS工作站软件，影像工作站软件，报告工作站软件
+
+2、工作流程
+采用串行工作流程，即：
+登记->Worklist->Droc->评片工作站（含影像工作站，RIS工作站，报告软件)->评片和出报告。
+
+3、数据流：
+登记的病人和检查信息->Worklist->Droc->Dicom影像数据->影像工作站后台StorageScp->采集Dicom中的头信息写入RIS数据库->登记的病人和检查信息->RIS工作站->检查ID->启动影像工作站和报告工作站->评片报告写入RIS数据库
+
+4、开发任务
+1）影像工作站Clearcanvas后台StorageScp接受来自DROC数据的时候，同时把病人和检查信息写入RIS数据库，这个写入功能在设置的时候可以开关。
+2）能够通过Automation的方法启动ClearCanvas，打开指定检查的影像
+3）汉化ClearCanvas
